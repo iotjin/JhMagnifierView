@@ -1,8 +1,8 @@
 # JhMagnifierView
 放大镜(MagnifierView) - 支持方形和圆形样式两种样式,可设置准星显示隐藏
 
-![](https://gitee.com/iotjh/Picture/raw/master/JhMagnifierView_01)  <br> 
-![](https://gitee.com/iotjh/Picture/raw/master/JhMagnifierView_02)  <br> 
+![](https://gitee.com/iotjh/Picture/raw/master/JhMagnifierView_01.png)  <br> 
+![](https://gitee.com/iotjh/Picture/raw/master/JhMagnifierView_02.png)  <br> 
 
 ## Examples
 
