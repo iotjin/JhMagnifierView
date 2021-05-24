@@ -9,16 +9,14 @@
 #import <UIKit/UIKit.h>
 
 
-typedef NS_ENUM(NSInteger, JhMagnifierStyle){
-    
+NS_ASSUME_NONNULL_BEGIN
+
+typedef NS_ENUM(NSInteger, JhMagnifierStyle) {
     /** 方形放大镜 */
     JhMagnifierStyleSquare = 0,
     /** 圆形放大镜*/
-    JhMagnifierStyleCircular ,
+    JhMagnifierStyleCircular,
 };
-
-
-NS_ASSUME_NONNULL_BEGIN
 
 
 @interface JhMagnifierView : UIWindow
@@ -42,9 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGPoint adjustPoint;
 
 /** +号 是否隐藏  默认YES */
-@property (assign, nonatomic) BOOL AddLabelIsHidden;
-
-
+@property (nonatomic, assign) BOOL isHiddenAddLabel;
 
 
 @end

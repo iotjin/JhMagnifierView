@@ -18,23 +18,6 @@
 @implementation ViewController
 
 
--(JhMagnifierView *)magnifierView
-{
-    if (! _magnifierView) {
-        
-        _magnifierView = [[JhMagnifierView alloc]init];
-        _magnifierView.magStyle = JhMagnifierStyleCircular; //设为圆形
-        _magnifierView.targetWindow = self.view.window;
-        _magnifierView.adjustPoint = CGPointMake(0, -15); //放大镜位置调整
-        _magnifierView.magnifierWidth = 100; //设置宽度
-        _magnifierView.AddLabelIsHidden = YES;
-        
-    }
-    return _magnifierView;
-}
-
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
   
@@ -45,35 +28,35 @@
     imageView.userInteractionEnabled = YES;
     [self.view addSubview:imageView];
 
-    
     UIPanGestureRecognizer *singlePan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(singlePan:)];
     singlePan.maximumNumberOfTouches = 1;
     [self.view addGestureRecognizer:singlePan];
-    
 }
 
-
--(void)singlePan:(UIPanGestureRecognizer *)gesture{
-    
+- (void)singlePan:(UIPanGestureRecognizer *)gesture {
     CGPoint point = [gesture locationInView:self.view.window];
     if (gesture.state == UIGestureRecognizerStateBegan) {
-        
         self.magnifierView.targetPoint = point;
-    }else if (gesture.state == UIGestureRecognizerStateChanged) {
-        
+    } else if (gesture.state == UIGestureRecognizerStateChanged) {
         self.magnifierView.targetPoint = point;
-    }else{
+    } else {
         //用完置nil。
         self.magnifierView = nil;
-        
     }
-    
-    
-    
-    
 }
 
 
+- (JhMagnifierView *)magnifierView {
+    if (! _magnifierView) {
+        _magnifierView = [[JhMagnifierView alloc]init];
+        _magnifierView.magStyle = JhMagnifierStyleCircular; //设为圆形
+        _magnifierView.targetWindow = self.view.window;
+        _magnifierView.adjustPoint = CGPointMake(0, -15); //放大镜位置调整
+        _magnifierView.magnifierWidth = 100; //设置宽度
+        _magnifierView.isHiddenAddLabel = YES;
+    }
+    return _magnifierView;
+}
 
 
 @end

@@ -11,17 +11,14 @@
 ```
 @property (strong, nonatomic) JhMagnifierView *magnifierView;
 
--(JhMagnifierView *)magnifierView
-{
+- (JhMagnifierView *)magnifierView {
     if (! _magnifierView) {
-        
         _magnifierView = [[JhMagnifierView alloc]init];
         _magnifierView.magStyle = JhMagnifierStyleCircular; //设为圆形
         _magnifierView.targetWindow = self.view.window;
         _magnifierView.adjustPoint = CGPointMake(0, -15); //放大镜位置调整
         _magnifierView.magnifierWidth = 100; //设置宽度
-        _magnifierView.AddLabelIsHidden = YES;
-        
+        _magnifierView.isHiddenAddLabel = YES; 
     }
     return _magnifierView;
 }

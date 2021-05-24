@@ -18,41 +18,15 @@
 
 
 - (void)dealloc {
-    
     NSLog(@"JhMagnifierView dealloc");
-  
 }
 
-
--(UILabel *)addLabel{
-    if (!_addLabel) {
-
-        CGFloat width = _magnifierWidth;
-        CGRect frame = CGRectMake(self.center.x-(width/2), self.center.y-(width/2), width, width);
-        UILabel *addLabel = [[UILabel alloc] initWithFrame:frame];
-        addLabel.center =self.center;
-        addLabel.hidden = YES;
-        addLabel.text = @"+";
-        addLabel.font = [UIFont systemFontOfSize:15];
-        addLabel.textAlignment = NSTextAlignmentCenter;
-        addLabel.backgroundColor = [UIColor clearColor];
-        addLabel.textColor = [UIColor redColor];
-//        NSLog(@"%@",NSStringFromCGRect(self.frame));
-        _addLabel =addLabel;
-        [self addSubview:_addLabel];
-    }
-    return _addLabel;
-}
-
-
--(instancetype)init{
+- (instancetype)init {
     self = [super init];
     if (self) {
-        
         self.magnifierWidth = 90;
         self.magnification = 1.5;
         self.adjustPoint = CGPointMake(0, 0);
-        
         self.frame = CGRectMake(0, 0, _magnifierWidth, _magnifierWidth);
         self.layer.borderWidth = 1;
         self.layer.borderColor = [[[UIColor lightGrayColor] colorWithAlphaComponent:0.9] CGColor];
@@ -68,25 +42,42 @@
     return self;
 }
 
-
-
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
     //提前位移半个长宽的坑
     CGContextTranslateCTM(ctx, self.frame.size.width * 0.5, self.frame.size.height * 0.5);
     CGContextScaleCTM(ctx, _magnification, _magnification);
     //再次位移后就可以把触摸点移至self.center的位置
     CGContextTranslateCTM(ctx, -1 * self.targetPoint.x, -1 * self.targetPoint.y);
-    
     [self.targetWindow.layer renderInContext:ctx];
 }
 
 #pragma mark - setter and getter
+
+- (UILabel *)addLabel {
+    if (!_addLabel) {
+        CGFloat width = _magnifierWidth;
+        CGRect frame = CGRectMake(self.center.x-(width/2), self.center.y-(width/2), width, width);
+        UILabel *addLabel = [[UILabel alloc] initWithFrame:frame];
+        addLabel.center = self.center;
+        addLabel.hidden = YES;
+        addLabel.text = @"+";
+        addLabel.font = [UIFont systemFontOfSize:15];
+        addLabel.textAlignment = NSTextAlignmentCenter;
+        addLabel.backgroundColor = [UIColor clearColor];
+        addLabel.textColor = [UIColor redColor];
+//        NSLog(@"%@",NSStringFromCGRect(self.frame));
+        _addLabel = addLabel;
+        [self addSubview:_addLabel];
+    }
+    return _addLabel;
+}
+
 - (void)setAdjustPoint:(CGPoint)adjustPoint {
     _adjustPoint = adjustPoint;
     [self setTargetPoint:self.targetPoint];
 }
 
-- (void)setMagnification:(float)magnification{
+- (void)setMagnification:(float)magnification {
      if(magnification<=1) return;
     _magnification = magnification;
 }
@@ -97,8 +88,8 @@
     [self setTargetPoint:self.targetPoint];
 
 }
-- (void)setMagnifierWidth:(float)magnifierWidth{
-    
+
+- (void)setMagnifierWidth:(float)magnifierWidth {
     _magnifierWidth = magnifierWidth;
     self.frame = CGRectMake(0, 0, _magnifierWidth, _magnifierWidth);
     if(_magStyle == JhMagnifierStyleCircular){
@@ -110,32 +101,18 @@
     self.addLabel.frame = frame;
 }
 
-- (void)setMagStyle:(JhMagnifierStyle)magStyle{
-
+- (void)setMagStyle:(JhMagnifierStyle)magStyle {
     _magStyle = magStyle;
-    switch (_magStyle) {
-        case JhMagnifierStyleCircular:
-        {
-            self.layer.cornerRadius = self.magnifierWidth/2;
-            self.layer.masksToBounds = YES;
-        }
-            break;
-        case JhMagnifierStyleSquare:
-        {
-//             self.layer.cornerRadius = self.magnifierWidth;
-        }
-            break;
-
-        default:
-            break;
+    if (magStyle == JhMagnifierStyleCircular) {
+        self.layer.cornerRadius = self.magnifierWidth/2;
+        self.layer.masksToBounds = YES;
     }
 }
 
-- (void)setAddLabelIsHidden:(BOOL)AddLabelIsHidden{
-    _AddLabelIsHidden = AddLabelIsHidden;
-    _addLabel.hidden =_AddLabelIsHidden;
+- (void)setIsHiddenAddLabel:(BOOL)isHiddenAddLabel {
+    _isHiddenAddLabel = isHiddenAddLabel;
+    _addLabel.hidden = isHiddenAddLabel;
 }
-
 
 - (void)setTargetPoint:(CGPoint)targetPoint {
     _targetPoint = targetPoint;
@@ -148,7 +125,6 @@
         [self.layer setNeedsDisplay];
     }
 }
-
 
 - (void)setHidden:(BOOL)hidden {
     [super setHidden:hidden];
