@@ -8,7 +8,7 @@
 
 
 * demo
-```
+```objc
 @property (strong, nonatomic) JhMagnifierView *magnifierView;
 
 - (JhMagnifierView *)magnifierView {
