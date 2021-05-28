@@ -1,4 +1,5 @@
 # JhMagnifierView
+
 放大镜(MagnifierView) - 支持方形和圆形样式两种样式,可设置准星显示隐藏
 
 ![](https://gitee.com/iotjh/Picture/raw/master/JhMagnifierView_01.png)  <br> 
@@ -6,8 +7,8 @@
 
 ## Examples
 
-
 * demo
+
 ```objc
 @property (strong, nonatomic) JhMagnifierView *magnifierView;
 
@@ -22,5 +23,4 @@
     }
     return _magnifierView;
 }
-
 ```
